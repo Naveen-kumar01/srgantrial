@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, render_template
 import os
 from flask_cors import CORS, cross_origin
 import boto3
+from wsgiref import simple_server
 
 
 os.putenv('LANG', 'en_US.UTF-8')
@@ -75,8 +76,13 @@ def predictRoute():
 
 
 # port = int(os.getenv("PORT"))
+port = int(os.getenv("PORT", 5000))
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000, debug=True)
+            host = '0.0.0.0'
+            # port = 5000
+            httpd = simple_server.make_server(host, port, app)
+            # print("Serving on %s %d" % (host, port))
+            httpd.serve_forever()
 
 
 
