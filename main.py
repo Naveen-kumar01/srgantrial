@@ -66,7 +66,9 @@ def predictRoute():
         image = (pred_list['path'])
         image_path = 'data/'+image
         s3 = boto3.resource(service_name="s3",
-                            region_name="us-east-2")
+                            region_name="us-east-2",
+                            aws_access_key_id="AKIA4HV2ZHHGMISVHC5W",
+                            aws_secret_access_key="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")
         data = s3.Bucket('aqi-data001')
         data.download_file(image_path, 'image1.jpg')
         resolve_and_plot('image1.jpg')
